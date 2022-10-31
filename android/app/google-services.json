@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "651861599186",
+    "project_id": "cantwait64v2",
+    "storage_bucket": "cantwait64v2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:651861599186:android:39997e8e305e0a54e89e0b",
+        "android_client_info": {
+          "package_name": "com.motortest.cantwait28"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "651861599186-vsu4inlq6g3kifat0e76cf6cimqqkmik.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaCfmuumnSj3qv7ptBnts7M4qBH4zM9Gs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "651861599186-vsu4inlq6g3kifat0e76cf6cimqqkmik.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
