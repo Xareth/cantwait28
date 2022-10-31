@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+
+// HomePage widget
 class HomePage extends StatelessWidget {
   const HomePage({
     Key? key,
@@ -15,7 +17,9 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Can\'t Wait 🤩'),
       ),
+      // HomePageBody widget
       body: const _HomePageBody(),
+      // FloatingActionButton on HomePage widget
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).push(
@@ -31,6 +35,7 @@ class HomePage extends StatelessWidget {
   }
 }
 
+// HomePageBody widget
 class _HomePageBody extends StatelessWidget {
   const _HomePageBody({
     Key? key,
@@ -38,20 +43,24 @@ class _HomePageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // BlocProvider HomeCubit
     return BlocProvider(
       create: (context) => HomeCubit()..start(),
       child: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
           final docs = state.items?.docs;
+          // Display nothing if Firebase items is null
           if (docs == null) {
             return const SizedBox.shrink();
           }
+          // Display ListView with items
           return ListView(
             padding: const EdgeInsets.symmetric(
               vertical: 20,
             ),
             children: [
               for (final doc in docs)
+                // ListViewItem wrapping
                 Dismissible(
                   key: ValueKey(doc.id),
                   background: const DecoratedBox(
@@ -72,9 +81,11 @@ class _HomePageBody extends StatelessWidget {
                     // only from right to left
                     return direction == DismissDirection.endToStart;
                   },
+                  // Delete item on swipe right
                   onDismissed: (direction) {
                     context.read<HomeCubit>().remove(documentID: doc.id);
                   },
+                  // ListViewItem details
                   child: _ListViewItem(
                     document: doc,
                   ),
@@ -87,6 +98,7 @@ class _HomePageBody extends StatelessWidget {
   }
 }
 
+// ListViewItem items
 class _ListViewItem extends StatelessWidget {
   const _ListViewItem({
     Key? key,
@@ -108,6 +120,7 @@ class _ListViewItem extends StatelessWidget {
         ),
         child: Column(
           children: [
+            // Container with image
             Container(
               height: 80,
               decoration: BoxDecoration(
@@ -120,8 +133,10 @@ class _ListViewItem extends StatelessWidget {
                 ),
               ),
             ),
+            // Below image container
             Row(
               children: [
+                // Title and Release date fields 
                 Expanded(
                   child: Container(
                     margin: const EdgeInsets.all(10),
@@ -146,6 +161,7 @@ class _ListViewItem extends StatelessWidget {
                     ),
                   ),
                 ),
+                // Box with days left
                 Container(
                   decoration: const BoxDecoration(
                     color: Colors.white70,

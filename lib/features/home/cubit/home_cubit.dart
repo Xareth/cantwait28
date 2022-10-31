@@ -10,6 +10,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   StreamSubscription? _streamSubscription;
 
+  // HomeCubit start
   Future<void> start() async {
     _streamSubscription = FirebaseFirestore.instance
         .collection('items')
@@ -25,6 +26,7 @@ class HomeCubit extends Cubit<HomeState> {
       );
   }
 
+  // HomeCubit remove item
   Future<void> remove({required String documentID}) async {
     try {
       await FirebaseFirestore.instance
@@ -39,6 +41,7 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
+  // HomeCubit close stream
   @override
   Future<void> close() {
     _streamSubscription?.cancel();

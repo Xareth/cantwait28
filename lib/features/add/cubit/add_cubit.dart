@@ -8,6 +8,7 @@ part 'add_state.dart';
 class AddCubit extends Cubit<AddState> {
   AddCubit() : super(const AddState());
 
+  // AddCubit Add
   Future<void> add(String title, String imageURL, DateTime releaseDate,) async {
     try {
       await FirebaseFirestore.instance.collection('items').add(

@@ -2,6 +2,7 @@ import 'package:cantwait28/features/add/cubit/add_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+// AddPage Widget
 class AddPage extends StatefulWidget {
   const AddPage({
     Key? key,
@@ -18,55 +19,69 @@ class _AddPageState extends State<AddPage> {
 
   @override
   Widget build(BuildContext context) {
+    // Bloc Provider AddCubit
     return BlocProvider(
       create: (context) => AddCubit(),
-      child: BlocBuilder<AddCubit, AddState>(
-        builder: (context, state) {
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text('Add new upcoming title'),
-              actions: [
-                IconButton(
-                  onPressed: _imageURL == null ||
-                          _title == null ||
-                          _releaseDate == null
-                      ? null
-                      : () {
-                          context.read<AddCubit>().add(
-                                _title!,
-                                _imageURL!,
-                                _releaseDate!,
-                              );
-                        },
-                  icon: const Icon(Icons.check),
-                ),
-              ],
-            ),
-            body: _AddPageBody(
-              onTitleChanged: (newValue) {
-                setState(() {
-                  _title = newValue;
-                });
-              },
-              onImageUrlChanged: (newValue) {
-                setState(() {
-                  _imageURL = newValue;
-                });
-              },
-              onDateChanged: (newValue) {
-                setState(() {
-                  _releaseDate = newValue;
-                });
-              },
-              selectedDateFormatted: _releaseDate?.toIso8601String(),
-            ),
-          );
+      // BlocListener if saved pop window
+      child: BlocListener<AddCubit, AddState>(
+        listener: (context, state) {
+          if (state.saved) {
+            Navigator.of(context).pop();
+          }
         },
+        // BlocBuilder AddCubit
+        child: BlocBuilder<AddCubit, AddState>(
+          builder: (context, state) {
+            return Scaffold(
+              appBar: AppBar(
+                title: const Text('Add new upcoming title'),
+                // AppBar actions
+                actions: [
+                  IconButton(
+                    // Validate form
+                    onPressed: _imageURL == null ||
+                            _title == null ||
+                            _releaseDate == null
+                        ? null
+                        : () {
+                            context.read<AddCubit>().add(
+                                  _title!,
+                                  _imageURL!,
+                                  _releaseDate!,
+                                );
+                          },
+                    icon: const Icon(Icons.check),
+                  ),
+                ],
+              ),
+              // AddPageBody widget
+              body: _AddPageBody(
+                onTitleChanged: (newValue) {
+                  setState(() {
+                    _title = newValue;
+                  });
+                },
+                onImageUrlChanged: (newValue) {
+                  setState(() {
+                    _imageURL = newValue;
+                  });
+                },
+                onDateChanged: (newValue) {
+                  setState(() {
+                    _releaseDate = newValue;
+                  });
+                },
+                selectedDateFormatted: _releaseDate?.toIso8601String(),
+              ),
+            );
+          },
+        ),
       ),
     );
   }
 }
 
+// AddPageBody
 class _AddPageBody extends StatelessWidget {
   const _AddPageBody({
     Key? key,
@@ -83,12 +98,14 @@ class _AddPageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // AddPage body ListView
     return ListView(
       padding: const EdgeInsets.symmetric(
         horizontal: 30,
         vertical: 20,
       ),
       children: [
+        // Field Title
         TextField(
           onChanged: onTitleChanged,
           decoration: const InputDecoration(
@@ -98,6 +115,7 @@ class _AddPageBody extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 20),
+        // Field Image URL
         TextField(
           onChanged: onImageUrlChanged,
           decoration: const InputDecoration(
@@ -107,6 +125,7 @@ class _AddPageBody extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 20),
+        // Button with DatePicker
         ElevatedButton(
           onPressed: () async {
             final selectedDate = await showDatePicker(
