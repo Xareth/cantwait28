@@ -2,6 +2,7 @@ import 'package:cantwait28/features/add/cubit/add_cubit.dart';
 import 'package:cantwait28/repositories/items_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 // AddPage Widget
 class AddPage extends StatefulWidget {
@@ -78,7 +79,9 @@ class _AddPageState extends State<AddPage> {
                     _releaseDate = newValue;
                   });
                 },
-                selectedDateFormatted: _releaseDate?.toIso8601String(),
+                selectedDateFormatted: _releaseDate == null
+                    ? null
+                    : DateFormat.yMMMMEEEEd().format(_releaseDate!),
               ),
             );
           },

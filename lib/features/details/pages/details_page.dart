@@ -45,42 +45,6 @@ class DetailsPage extends StatelessWidget {
   }
 }
 
-// DetailsPageBody widget
-class _DetailsPageBody extends StatelessWidget {
-  const _DetailsPageBody({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    // BlocProvider DetailsCubit
-    return BlocProvider(
-      create: (context) => DetailsCubit(ItemsRepository()),
-      child: BlocBuilder<DetailsCubit, DetailsState>(
-        builder: (context, state) {
-          final itemModel = state.itemModel;
-          // if itemModel is empty
-          if (itemModel == null) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          // Display ListView with items
-          return ListView(
-            padding: const EdgeInsets.symmetric(
-              vertical: 20,
-            ),
-            children: [
-              // ListViewItem details
-              _ListViewItem(
-                itemModel: itemModel,
-              ),
-            ],
-          );
-        },
-      ),
-    );
-  }
-}
-
 // ListViewItem items
 class _ListViewItem extends StatelessWidget {
   const _ListViewItem({
@@ -135,7 +99,7 @@ class _ListViewItem extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 10),
-                        Text(itemModel.releaseDate.toString()),
+                        Text(itemModel.releaseDateFormatted()),
                       ],
                     ),
                   ),
